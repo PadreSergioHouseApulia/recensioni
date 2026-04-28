@@ -8,6 +8,7 @@
     <meta property="og:description" content="Il tuo parere è preziosissimo. Clicca qui per valutare la tua esperienza a PadreSergio House in soli 10 secondi!">
     <meta property="og:image" content="https://padresergiohouseapulia.github.io/recensioni/anteprima.jpg">
     <meta property="og:type" content="website">
+
     <link rel="icon" type="image/x-icon" href="review.ico">
     
     <style>
@@ -120,6 +121,23 @@
             document.getElementById('btn-en').classList.remove('active');
             document.getElementById('btn-' + lang).classList.add('active');
         }
+
+	window.onload = () => {
+            const saved = localStorage.getItem('pref-lang');
+            if (saved) {
+                // Se l'ospite aveva già scelto una lingua, usiamo quella
+                changeLang(saved);
+            } else {
+                // MAGIA: Rileva la lingua del telefono dell'ospite!
+                const userLang = navigator.language || navigator.userLanguage;
+                // Se il telefono è impostato su Italiano, mostra ITA. Altrimenti, forza l'Inglese.
+                if (userLang.toLowerCase().startsWith('it')) {
+                    changeLang('it');
+                } else {
+                    changeLang('en');
+                }
+            }
+        };
 
         const stars = document.querySelectorAll('.star');
         let voto = 0;
